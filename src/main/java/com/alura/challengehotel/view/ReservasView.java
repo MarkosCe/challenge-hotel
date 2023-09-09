@@ -88,24 +88,24 @@ public class ReservasView extends JFrame {
 		
 		// Código que crea los elementos de la interfáz gráfica
 		
-		JSeparator separator_1_2 = new JSeparator();
+		/*JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setForeground(SystemColor.textHighlight);
 		separator_1_2.setBounds(68, 195, 289, 2);
 		separator_1_2.setBackground(SystemColor.textHighlight);
 		panel.add(separator_1_2);
-		
+
 		JSeparator separator_1_3 = new JSeparator();
 		separator_1_3.setForeground(SystemColor.textHighlight);
 		separator_1_3.setBackground(SystemColor.textHighlight);
 		separator_1_3.setBounds(68, 453, 289, 2);
 		panel.add(separator_1_3);
-		
+
 		JSeparator separator_1_1 = new JSeparator();
 		separator_1_1.setForeground(SystemColor.textHighlight);
 		separator_1_1.setBounds(68, 281, 289, 11);
 		separator_1_1.setBackground(SystemColor.textHighlight);
-		panel.add(separator_1_1);
-		
+		panel.add(separator_1_1); */
+
 		JLabel lblCheckIn = new JLabel("FECHA DE CHECK IN");
 		lblCheckIn.setForeground(SystemColor.textInactiveText);
 		lblCheckIn.setBounds(68, 136, 169, 14);
@@ -277,10 +277,11 @@ public class ReservasView extends JFrame {
 		txtFechaSalida.setBorder(new LineBorder(new Color(255, 255, 255), 0));
 		panel.add(txtFechaSalida);
 
-		txtValor = new JTextField();
+		txtValor = new JTextField("$");
 		txtValor.setBackground(SystemColor.text);
+		//txtValor.setBackground(Color.LIGHT_GRAY);
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
-		txtValor.setForeground(Color.BLACK);
+		txtValor.setForeground(Color.LIGHT_GRAY);
 		txtValor.setBounds(78, 328, 43, 33);
 		txtValor.setEditable(false);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
@@ -297,8 +298,8 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
-		JPanel btnsiguiente = new JPanel();
-		btnsiguiente.addMouseListener(new MouseAdapter() {
+		JPanel btnNext = new JPanel();
+		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {		
@@ -309,12 +310,18 @@ public class ReservasView extends JFrame {
 				}
 			}						
 		});
-		btnsiguiente.setLayout(null);
-		btnsiguiente.setBackground(SystemColor.textHighlight);
-		btnsiguiente.setBounds(238, 493, 122, 35);
-		panel.add(btnsiguiente);
-		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnNext.setLayout(null);
+		btnNext.setBackground(SystemColor.textHighlight);
+		btnNext.setBounds(238, 493, 122, 35);
+		panel.add(btnNext);
+		btnNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+		JLabel labelNext = new JLabel("SIGUIENTE");
+		labelNext.setHorizontalAlignment(SwingConstants.CENTER);
+		labelNext.setForeground(Color.WHITE);
+		labelNext.setFont(new Font("Roboto", Font.PLAIN, 18));
+		labelNext.setBounds(0, 0, 122, 35);
+		btnNext.add(labelNext);
 
 	}
 		
