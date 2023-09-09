@@ -11,6 +11,7 @@ import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.Objects;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,8 +35,8 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtUsuario;
-	private JPasswordField txtContrasena;
+	private JTextField txtUser;
+	private JPasswordField txtPassword;
 	int xMouse, yMouse;
 	private JLabel labelExit;
 
@@ -85,7 +86,9 @@ public class Login extends JFrame {
 		JLabel imgHotel = new JLabel("");
 		imgHotel.setBounds(0, 0, 304, 538);
 		panel_1.add(imgHotel);
-		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/images/img-hotel-login-.png")));
+		imgHotel.setIcon(new ImageIcon(
+				Objects.requireNonNull(
+						Login.class.getResource("/images/img-hotel-login-.png"))));
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
@@ -117,76 +120,76 @@ public class Login extends JFrame {
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);		
 		
-		txtUsuario = new JTextField();
-		txtUsuario.addMouseListener(new MouseAdapter() {
+		txtUser = new JTextField();
+		txtUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				 if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
-					 txtUsuario.setText("");
-					 txtUsuario.setForeground(Color.black);
+				 if (txtUser.getText().equals("Ingrese su nombre de usuario")) {
+					 txtUser.setText("");
+					 txtUser.setForeground(Color.black);
 			        }
-			        if (String.valueOf(txtContrasena.getPassword()).isEmpty()) {
-			        	txtContrasena.setText("********");
-			        	txtContrasena.setForeground(Color.gray);
+			        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+			        	txtPassword.setText("********");
+			        	txtPassword.setForeground(Color.gray);
 			        }
 			}
 		});
-		txtUsuario.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtUsuario.setText("Ingrese su nombre de usuario");
-		txtUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		txtUsuario.setForeground(SystemColor.activeCaptionBorder);
-		txtUsuario.setBounds(65, 256, 324, 32);
-		panel.add(txtUsuario);
-		txtUsuario.setColumns(10);
+		txtUser.setFont(new Font("Roboto", Font.PLAIN, 16));
+		txtUser.setText("Ingrese su nombre de usuario");
+		txtUser.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtUser.setForeground(SystemColor.activeCaptionBorder);
+		txtUser.setBounds(65, 256, 324, 32);
+		panel.add(txtUser);
+		txtUser.setColumns(10);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(new Color(0, 120, 215));
 		separator.setBounds(65, 292, 324, 2);
 		panel.add(separator);
 		
-		JLabel labelTitulo = new JLabel("INICIAR SESIÓN");
-		labelTitulo.setForeground(SystemColor.textHighlight);
-		labelTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 26));
-		labelTitulo.setBounds(65, 149, 202, 26);
-		panel.add(labelTitulo);
+		JLabel labelTitle = new JLabel("INICIAR SESIÓN");
+		labelTitle.setForeground(SystemColor.textHighlight);
+		labelTitle.setFont(new Font("Roboto Black", Font.PLAIN, 26));
+		labelTitle.setBounds(65, 149, 202, 26);
+		panel.add(labelTitle);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBackground(SystemColor.textHighlight);
 		separator_1.setBounds(65, 393, 324, 2);
 		panel.add(separator_1);
 		
-		txtContrasena = new JPasswordField();
-		txtContrasena.setText("********");
-		txtContrasena.addMouseListener(new MouseAdapter() {
+		txtPassword = new JPasswordField();
+		txtPassword.setText("********");
+		txtPassword.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if (String.valueOf(txtContrasena.getPassword()).equals("********")) {
-					txtContrasena.setText("");
-					txtContrasena.setForeground(Color.black);
+				if (String.valueOf(txtPassword.getPassword()).equals("********")) {
+					txtPassword.setText("");
+					txtPassword.setForeground(Color.black);
 		        }
-		        if (txtUsuario.getText().isEmpty()) {
-		        	txtUsuario.setText("Ingrese su nombre de usuario");
-		        	txtUsuario.setForeground(Color.gray);
+		        if (txtUser.getText().isEmpty()) {
+		        	txtUser.setText("Ingrese su nombre de usuario");
+		        	txtUser.setForeground(Color.gray);
 		        }
 			}
 		});
-		txtContrasena.setForeground(SystemColor.activeCaptionBorder);
-		txtContrasena.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtContrasena.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		txtContrasena.setBounds(65, 353, 324, 32);
-		panel.add(txtContrasena);
+		txtPassword.setForeground(SystemColor.activeCaptionBorder);
+		txtPassword.setFont(new Font("Roboto", Font.PLAIN, 16));
+		txtPassword.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtPassword.setBounds(65, 353, 324, 32);
+		panel.add(txtPassword);
 		
-		JLabel LabelUsuario = new JLabel("USUARIO");
-		LabelUsuario.setForeground(SystemColor.textInactiveText);
-		LabelUsuario.setFont(new Font("Roboto Black", Font.PLAIN, 20));
-		LabelUsuario.setBounds(65, 219, 107, 26);
-		panel.add(LabelUsuario);
+		JLabel labelUser = new JLabel("USUARIO");
+		labelUser.setForeground(SystemColor.textInactiveText);
+		labelUser.setFont(new Font("Roboto Black", Font.PLAIN, 20));
+		labelUser.setBounds(65, 219, 107, 26);
+		panel.add(labelUser);
 		
-		JLabel lblContrasea = new JLabel("CONTRASEÑA");
-		lblContrasea.setForeground(SystemColor.textInactiveText);
-		lblContrasea.setFont(new Font("Roboto Black", Font.PLAIN, 20));
-		lblContrasea.setBounds(65, 316, 140, 26);
-		panel.add(lblContrasea);
+		JLabel labelPassword = new JLabel("CONTRASEÑA");
+		labelPassword.setForeground(SystemColor.textInactiveText);
+		labelPassword.setFont(new Font("Roboto Black", Font.PLAIN, 20));
+		labelPassword.setBounds(65, 316, 140, 26);
+		panel.add(labelPassword);
 		
 		JPanel btnLogin = new JPanel();
 		btnLogin.addMouseListener(new MouseAdapter() {
@@ -201,7 +204,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				loginAccess();
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -219,7 +222,9 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/images/lOGO-50PX.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(
+				Objects.requireNonNull(
+						Login.class.getResource("/images/lOGO-50PX.png"))));
 		lblNewLabel_1.setBounds(65, 65, 48, 59);
 		panel.add(lblNewLabel_1);
 		
@@ -243,13 +248,13 @@ public class Login extends JFrame {
 		header.setLayout(null);
 	}
 	
-	private void Login() {
-		 String Usuario= "admin";
-	     String Contraseña="admin";
+	private void loginAccess() {
+		 String user= "admin";
+	     String password="admin";
 
-	        String contrase=new String (txtContrasena.getPassword());
+	        String pass=new String (txtPassword.getPassword());
 
-	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
+	        if(txtUser.getText().equals(user) && pass.equals(password)){
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
