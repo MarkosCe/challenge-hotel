@@ -6,6 +6,7 @@ import com.alura.challengehotel.model.Huesped;
 import com.alura.challengehotel.model.Reserva;
 
 import java.sql.Connection;
+import java.util.List;
 
 public class HuespedController {
     private final HuespedDao huespedDao;
@@ -14,5 +15,9 @@ public class HuespedController {
     }
     public void save(Huesped huesped){
         huespedDao.save(huesped);
+    }
+
+    public List<Huesped> toList(){
+        return huespedDao.toList();
     }
 }

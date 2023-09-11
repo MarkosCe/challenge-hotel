@@ -4,6 +4,7 @@
  */
 package com.alura.challengehotel.view;
 
+import com.alura.challengehotel.controller.HuespedController;
 import com.alura.challengehotel.controller.ReservaController;
 import com.alura.challengehotel.model.Huesped;
 import com.alura.challengehotel.model.Reserva;
@@ -37,6 +38,7 @@ public class Busqueda extends JFrame {
     int xMouse, yMouse;
 
     private ReservaController reservaController;
+    private HuespedController huespedController;
 
     /**
      * Launch the application.
@@ -70,6 +72,7 @@ public class Busqueda extends JFrame {
         setUndecorated(true);
 
         reservaController = new ReservaController();
+        huespedController = new HuespedController();
 
         txtBuscar = new JTextField();
         txtBuscar.setBounds(536, 127, 193, 31);
@@ -217,17 +220,11 @@ public class Busqueda extends JFrame {
         btnbuscar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                var result = reservaController.find(txtBuscar.getText());
-                if (result.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "No hay resultados");
+                if (txtBuscar.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Ingresa tu busqueda");
                     return;
                 }
-                clearTable();
-                for (Map.Entry<Reserva, Huesped> entry : result.entrySet()) {
-                    Reserva reserva = entry.getKey();
-                    Huesped huesped = entry.getValue();
-                    loadTable(reserva, huesped);
-                }
+                executeSearch();
             }
         });
         btnbuscar.setLayout(null);
@@ -270,6 +267,9 @@ public class Busqueda extends JFrame {
         lblEliminar.setFont(new Font("Roboto", Font.PLAIN, 18));
         lblEliminar.setBounds(0, 0, 122, 35);
         btnEliminar.add(lblEliminar);
+
+        loadTableFull();
+
         setResizable(false);
     }
 
@@ -285,23 +285,56 @@ public class Busqueda extends JFrame {
         this.setLocation(x - xMouse, y - yMouse);
     }
 
-    private void loadTable(Reserva reserva, Huesped huesped){
-        modelo.addRow(new Object[]{
-                reserva.getId(),
-                reserva.getFechaEntrada(),
-                reserva.getFechaSalida(),
-                reserva.getValor(),
-                reserva.getFormaPago()
-        });
-        modeloHuesped.addRow(new Object[]{
-                huesped.getId(),
-                huesped.getNombre(),
-                huesped.getApellido(),
-                huesped.getFecha_nacimiento(),
-                huesped.getNacionalidad(),
-                huesped.getTelefono(),
-                huesped.getId_reserva()
-        });
+    private void loadTableFull(){
+        var reservas = this.reservaController.toList();
+        reservas.forEach(reserva -> modelo.addRow(
+                new Object[]{
+                        reserva.getId(),
+                        reserva.getFechaEntrada(),
+                        reserva.getFechaSalida(),
+                        reserva.getValor(),
+                        reserva.getFormaPago()
+                }));
+        var huespedes = this.huespedController.toList();
+        huespedes.forEach(huesped -> modeloHuesped.addRow(
+                new Object[]{
+                        huesped.getId(),
+                        huesped.getNombre(),
+                        huesped.getApellido(),
+                        huesped.getFecha_nacimiento(),
+                        huesped.getNacionalidad(),
+                        huesped.getTelefono(),
+                        huesped.getId_reserva()
+                }
+        ));
+    }
+    private void executeSearch(){
+        var result = reservaController.find(txtBuscar.getText());
+        if (result.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No hay resultados");
+            return;
+        }
+        clearTable();
+        for (Map.Entry<Reserva, Huesped> entry : result.entrySet()) {
+            Reserva reserva = entry.getKey();
+            Huesped huesped = entry.getValue();
+            modelo.addRow(new Object[]{
+                    reserva.getId(),
+                    reserva.getFechaEntrada(),
+                    reserva.getFechaSalida(),
+                    reserva.getValor(),
+                    reserva.getFormaPago()
+            });
+            modeloHuesped.addRow(new Object[]{
+                    huesped.getId(),
+                    huesped.getNombre(),
+                    huesped.getApellido(),
+                    huesped.getFecha_nacimiento(),
+                    huesped.getNacionalidad(),
+                    huesped.getTelefono(),
+                    huesped.getId_reserva()
+            });
+        }
     }
 
     private void clearTable(){

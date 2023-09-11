@@ -5,7 +5,9 @@ import com.alura.challengehotel.model.Reserva;
 
 import javax.swing.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ReservaDao {
@@ -79,5 +81,31 @@ public class ReservaDao {
             throw new RuntimeException(e);
         }
         return datos;
+    }
+
+    public List<Reserva> toList(){
+        List<Reserva> reservas = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM RESERVAS;";
+            PreparedStatement statement = con.prepareStatement(query);
+            try(statement) {
+                ResultSet resultSet = statement.executeQuery();
+                try(resultSet) {
+                    while (resultSet.next()){
+                        Reserva reserva = new Reserva(
+                                resultSet.getInt("ID"),
+                                resultSet.getDate("FECHA_ENTRADA"),
+                                resultSet.getDate("FECHA_SALIDA"),
+                                resultSet.getFloat("VALOR"),
+                                resultSet.getString("FORMA_PAGO"));
+                        reservas.add(reserva);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
+        return reservas;
     }
 }

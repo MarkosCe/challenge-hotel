@@ -1,12 +1,15 @@
 package com.alura.challengehotel.dao;
 
 import com.alura.challengehotel.model.Huesped;
+import com.alura.challengehotel.model.Reserva;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HuespedDao {
 
@@ -43,5 +46,32 @@ public class HuespedDao {
             JOptionPane.showMessageDialog(null, "Ocurrio un error.");
             throw new RuntimeException(sqlException);
         }
+    }
+
+    public List<Huesped> toList(){
+        List<Huesped> huespedes = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM HUESPEDES;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            try(statement) {
+                ResultSet resultSet = statement.executeQuery();
+                try(resultSet) {
+                    while (resultSet.next()){
+                        Huesped huesped =  new Huesped(resultSet.getInt("ID"),
+                                resultSet.getString("NOMBRE"),
+                                resultSet.getString("APELLIDO"),
+                                resultSet.getDate("FECHA_NACIMIENTO"),
+                                resultSet.getString("NACIONALIDAD"),
+                                resultSet.getString("TELEFONO"),
+                                resultSet.getInt("ID_RESERVA"));
+                        huespedes.add(huesped);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
+        return huespedes;
     }
 }
