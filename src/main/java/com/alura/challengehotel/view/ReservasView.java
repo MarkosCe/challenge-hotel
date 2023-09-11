@@ -85,7 +85,6 @@ public class ReservasView extends JFrame {
 
         reservaController = new ReservaController();
 
-
         JPanel panel = new JPanel();
         panel.setBorder(null);
         panel.setBackground(Color.WHITE);
@@ -283,12 +282,19 @@ public class ReservasView extends JFrame {
         txtFechaSalida.setBorder(new LineBorder(new Color(255, 255, 255), 0));
         panel.add(txtFechaSalida);
 
+        JTextField txtSymbol = new JTextField("$");
+        txtSymbol.setBackground(SystemColor.text);
+        txtSymbol.setForeground(Color.DARK_GRAY);
+        txtSymbol.setBounds(78, 328, 30, 33);
+        txtSymbol.setEditable(false);
+        txtSymbol.setFont(new Font("Roboto Black", Font.BOLD, 17));
+        txtSymbol.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        panel.add(txtSymbol);
         txtValor = new JTextField("$");
         txtValor.setBackground(SystemColor.text);
-        //txtValor.setBackground(Color.LIGHT_GRAY);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
-        txtValor.setForeground(Color.DARK_GRAY);
-        txtValor.setBounds(78, 328, 93, 33);
+        txtValor.setForeground(Color.darkGray);
+        txtValor.setBounds(98, 328, 93, 33);
         txtValor.setEditable(false);
         txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
         txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -307,7 +313,7 @@ public class ReservasView extends JFrame {
         txtFormaPago.setBackground(SystemColor.text);
         txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
         txtFormaPago.setFont(new Font("Roboto", Font.PLAIN, 16));
-        txtFormaPago.setModel(new DefaultComboBoxModel(new String[]{"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
+        txtFormaPago.setModel(new DefaultComboBoxModel<>(new String[]{"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
         panel.add(txtFormaPago);
 
         JPanel btnNext = new JPanel();
@@ -323,9 +329,10 @@ public class ReservasView extends JFrame {
                             Float.valueOf(txtValor.getText()),
                             String.valueOf(txtFormaPago.getSelectedItem()));
                     reservaController.insert(reserva);
-                    System.out.println(reserva.getId());
-                    RegistroHuesped registro = new RegistroHuesped();
-                    registro.setVisible(true);
+                    //System.out.println(reserva.getId());
+                    JOptionPane.showMessageDialog(null, "Registro exitoso.");
+                    RegistroHuesped registerHuesped = new RegistroHuesped(reserva);
+                    registerHuesped.setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");

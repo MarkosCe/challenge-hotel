@@ -3,12 +3,19 @@ package com.alura.challengehotel.model;
 import java.sql.Date;
 
 public class Reserva {
-
     private int id;
     private Date fechaEntrada;
     private Date fechaSalida;
     private Float valor;
     private String formaPago;
+
+    public Reserva(int id, Date fechaEntrada, Date fechaSalida, Float valor, String formaPago) {
+        this.id = id;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.valor = valor;
+        this.formaPago = formaPago;
+    }
 
     public Reserva(Date fechaEntrada, Date fechaSalida, Float valor, String formaPago) {
         this.fechaEntrada = fechaEntrada;

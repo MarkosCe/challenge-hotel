@@ -14,4 +14,8 @@ public class ReservaController {
     public void insert(Reserva reserva){
         reservaDao.insert(reserva);
     }
+
+    public void find(String param){
+        reservaDao.find(param);
+    }
 }

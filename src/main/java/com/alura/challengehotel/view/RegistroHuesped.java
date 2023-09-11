@@ -4,6 +4,9 @@
  */
 package com.alura.challengehotel.view;
 
+import com.alura.challengehotel.controller.HuespedController;
+import com.alura.challengehotel.model.Huesped;
+import com.alura.challengehotel.model.Reserva;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -13,16 +16,9 @@ import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.Date;
 import java.text.Format;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -42,6 +38,8 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelAtras;
 	int xMouse, yMouse;
 
+	private HuespedController huespedController;
+
 	/**
 	 * Launch the application.
 	 */
@@ -49,8 +47,9 @@ public class RegistroHuesped extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegistroHuesped frame = new RegistroHuesped();
-					frame.setVisible(true);
+					System.out.println("ssdsdsd");
+					//RegistroHuesped frame = new RegistroHuesped();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -61,8 +60,7 @@ public class RegistroHuesped extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistroHuesped() {
-		
+	public RegistroHuesped(Reserva reserva) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/images/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
@@ -73,7 +71,9 @@ public class RegistroHuesped extends JFrame {
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		contentPane.setLayout(null);
-		
+
+		huespedController = new HuespedController();
+
 		JPanel header = new JPanel();
 		header.setBounds(0, 0, 910, 36);
 		header.addMouseMotionListener(new MouseMotionAdapter() {
@@ -207,12 +207,13 @@ public class RegistroHuesped extends JFrame {
 		lblNumeroReserva.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 		contentPane.add(lblNumeroReserva);
 		
-		txtNreserva = new JTextField();
+		txtNreserva = new JTextField(reserva.getId() + "");
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNreserva.setEditable(false);
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -227,7 +228,7 @@ public class RegistroHuesped extends JFrame {
 		separator_1_2_1.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_1);
 		
-		JSeparator separator_1_2_2 = new JSeparator();
+		/*JSeparator separator_1_2_2 = new JSeparator();
 		separator_1_2_2.setBounds(560, 314, 289, 2);
 		separator_1_2_2.setForeground(new Color(12, 138, 199));
 		separator_1_2_2.setBackground(new Color(12, 138, 199));
@@ -237,7 +238,7 @@ public class RegistroHuesped extends JFrame {
 		separator_1_2_3.setBounds(560, 386, 289, 2);
 		separator_1_2_3.setForeground(new Color(12, 138, 199));
 		separator_1_2_3.setBackground(new Color(12, 138, 199));
-		contentPane.add(separator_1_2_3);
+		contentPane.add(separator_1_2_3);*/
 		
 		JSeparator separator_1_2_4 = new JSeparator();
 		separator_1_2_4.setBounds(560, 457, 289, 2);
@@ -256,6 +257,20 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Huesped huesped = new Huesped(
+						txtNombre.getText(),
+						txtApellido.getText(),
+						new Date(txtFechaN.getDate().getTime()),
+						String.valueOf(txtNacionalidad.getSelectedItem()),
+						txtTelefono.getText(),
+						reserva.getId()
+						);
+				huespedController.save(huesped);
+				JOptionPane.showMessageDialog(null,
+						"La reserva num. " + reserva.getId() + " fue registrado exitosamente");
+				MenuUsuario menuUsuario = new MenuUsuario();
+				menuUsuario.setVisible(true);
+				dispose();
 			}
 		});
 		btnguardar.setLayout(null);
@@ -288,7 +303,7 @@ public class RegistroHuesped extends JFrame {
 		
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(857, 0, 53, 36);
-		contentPane.add(btnexit);
+		header.add(btnexit);
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
