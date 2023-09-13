@@ -325,7 +325,8 @@ public class ReservasView extends JFrame {
 
                 if (dateCheckIn != null && dateCheckOut != null) {
                     Reserva reserva = new Reserva(
-                            new Date(dateCheckIn.getTime()), new Date(dateCheckOut.getTime()),
+                            new Date(dateCheckIn.getTime()),
+                            new Date(dateCheckOut.getTime()),
                             Float.valueOf(txtValor.getText()),
                             String.valueOf(txtFormaPago.getSelectedItem()));
                     reservaController.insert(reserva);

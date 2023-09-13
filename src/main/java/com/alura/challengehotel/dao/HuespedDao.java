@@ -74,4 +74,43 @@ public class HuespedDao {
         }
         return huespedes;
     }
+
+    public int update(Huesped huesped){
+        try {
+            String updateQuery = "UPDATE HUESPEDES SET NOMBRE = ?, APELLIDO = ?, " +
+                    "FECHA_NACIMIENTO = ?, NACIONALIDAD = ?, TELEFONO = ? " +
+                    "WHERE ID = ?";
+            final PreparedStatement statement = connection.prepareStatement(updateQuery);
+
+            try (statement) {
+                statement.setString(1, huesped.getNombre());
+                statement.setString(2, huesped.getApellido());
+                statement.setDate(3, huesped.getFecha_nacimiento());
+                statement.setString(4, huesped.getNacionalidad());
+                statement.setString(5, huesped.getTelefono());
+                statement.setInt(6, huesped.getId());
+                return statement.executeUpdate();
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public int delete(Integer id){
+        try{
+            String query = "DELETE FROM HUESPEDES WHERE ID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            try(statement) {
+                statement.setInt(1, id);
+
+                return statement.executeUpdate();
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
+    }
 }

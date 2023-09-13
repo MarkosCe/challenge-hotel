@@ -26,4 +26,12 @@ public class ReservaController {
     public List<Reserva> toList(){
         return reservaDao.toList();
     }
+
+    public int delete(Integer id){
+        return reservaDao.delete(id);
+    }
+
+    public int update(Reserva reserva){
+        return reservaDao.update(reserva);
+    }
 }

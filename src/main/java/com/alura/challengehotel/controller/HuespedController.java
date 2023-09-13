@@ -20,4 +20,12 @@ public class HuespedController {
     public List<Huesped> toList(){
         return huespedDao.toList();
     }
+
+    public int delete(Integer id){
+        return huespedDao.delete(id);
+    }
+
+    public int update(Huesped huesped){
+        return huespedDao.update(huesped);
+    }
 }

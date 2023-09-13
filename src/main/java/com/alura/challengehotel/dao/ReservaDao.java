@@ -34,7 +34,6 @@ public class ReservaDao {
                 try(resultSet) {
                     if (resultSet.next()){
                         reserva.setId(resultSet.getInt(1));
-                        //System.out.println(resultSet.getInt(1));
                     } else {
                         System.out.println("No hay llave generada");
                     }
@@ -107,5 +106,41 @@ public class ReservaDao {
             throw new RuntimeException(e);
         }
         return reservas;
+    }
+
+    public int update(Reserva reserva){
+        try {
+            String updateQuery = "UPDATE RESERVAS SET FECHA_ENTRADA = ?, FECHA_SALIDA = ?, VALOR = ? WHERE ID = ?";
+            final PreparedStatement statement = con.prepareStatement(updateQuery);
+
+            try (statement) {
+                statement.setDate(1, reserva.getFechaEntrada());
+                statement.setDate(2, reserva.getFechaSalida());
+                statement.setFloat(3, reserva.getValor());
+                statement.setString(4, reserva.getFormaPago());
+                statement.setInt(5, reserva.getId());
+                return statement.executeUpdate();
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public int delete(Integer id){
+        try{
+            String query = "DELETE FROM RESERVAS WHERE ID = ?";
+            PreparedStatement statement = con.prepareStatement(query);
+            try(statement) {
+                statement.setInt(1, id);
+
+                return statement.executeUpdate();
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Algo salio mal :(");
+            throw new RuntimeException(e);
+        }
     }
 }
